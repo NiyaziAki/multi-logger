@@ -122,53 +122,7 @@ const fatalMessage = getConsoleMessage(
   "Fatal Error !"
 );
 
-const options = {
-  dateFormat: "",
-  timeFormat: "",
-  showFullPath: false,
-  showDate: true,
-  showTime: true,
-  showCallerInfo: true,
-  loggers: {
-    status: {
-      level: levels.Trace,
-      badge: "☺",
-      label: "Status",
-      foreground: foregrounds.Magenta,
-      background: backgrounds.Default,
-      isUnderlined: true,
-      text: {
-        foreground: foregrounds.Default,
-        background: backgrounds.Default,
-        isUnderlined: true
-      }
-    }
-  },
-  rules: {
-    production: {
-      writeTo: {
-        file: [
-          {
-            level: levels.Error,
-            folderPath: "C:\\Repositories\\thoth\\logs",
-            fileName: "error.txt",
-            size: 1024
-          },
-          {
-            minLevel: levels.Warning,
-            folderPath: "C:\\Repositories\\thoth\\logs",
-            fileName: "warning.txt",
-            size: 1024
-          }
-        ],
-        mongoDb: [{ minLevel: levels.Warning, connectionString: "" }]
-      }
-    },
-    development: {
-      writeTo: { console: [{ minLevel: levels.Trace }] }
-    }
-  }
-};
+
 
 describe("MultiLogger", () => {
   describe("new MultiLogger()", () => {

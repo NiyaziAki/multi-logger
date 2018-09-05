@@ -1,10 +1,9 @@
 const levels = Object.freeze({
   Trace: 0,
   Debug: 1,
-  Information: 2,
-  Warning: 3,
-  Error: 4,
-  Fatal: 5
+  Warning: 2,
+  Error: 3,
+  Fatal: 4
 });
 
 module.exports = levels;

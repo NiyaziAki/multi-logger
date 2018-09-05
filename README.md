@@ -164,3 +164,13 @@ const options = {
 const multiLogger = new logger.MultiLogger(options);
 multiLogger.info("Writes to file and mongo db for production & console for development according to loggers log level!");
 ```
+
+#### Logging Rules Attributes
+* `level` - Single log level for the matching rule.
+* `minLevel` - Minimal log level for the matching rule.
+* `folderPath` - Folder path for the matching rule (Applies only if the rule is "file").
+* `fileName` - File name for the matching rule (Applies only if the rule is "file").
+* `size` - Maximum file size in bayts for the matching rule. Creates a new file if the maximum size is reached (Applies only if the rule is "file").
+* `connectionString` - The connection string needed for the matching rule (Applies only if the rule is "mongoDb").
+
+If level and minLevel is defined for the same rule minLevel will be taking to account.

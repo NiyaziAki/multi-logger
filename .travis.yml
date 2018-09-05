@@ -4,7 +4,7 @@ node_js:
 
 before_install: |
   [[ ! -x ~/npm/node_modules/.bin/npm ]] && {
-    cd ~/npm && npm install npm@^5
+    cd ~/npm && npm install npm@^10
     cd -
   } || true
   export PATH=~/npm/node_modules/.bin:$PATH

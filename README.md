@@ -33,3 +33,25 @@ multiLogger.fatal("Fatal Error !");
 <div align="center">
   <img alt="Default Usage" src="docs/defaultusage.PNG">
 </div>
+
+### Configuration
+
+```js
+const logger = require("multi-loggerjs");
+
+const options = {
+  dateFormat: "MMMM Do YYYY",
+  timeFormat: "h:mm:ss",
+  showFullPath: true,
+  showDate: true,
+  showTime: true,
+  showCallerInfo: true
+};
+
+let multiLogger = new logger.MultiLogger(options);
+multiLogger.info("Configurable logger!");
+
+```
+<div align="center">
+  <img alt="Default Usage" src="docs/configure.PNG">
+</div>

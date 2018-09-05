@@ -199,12 +199,12 @@ describe("MultiLogger", () => {
 
         let spy = sinon.spy(console, "log");
 
-        multiLogger.info("Info !");
+        multiLogger.info("Info !");        
+        console.log(infoMessage);
         assert(
           !isEmpty(infoMessage.find(message => console.log.calledWith(message)))
         );
 
-        console.log(successMessage);
         multiLogger.success("Success !");
         assert(
           !isEmpty(

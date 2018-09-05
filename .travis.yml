@@ -8,8 +8,3 @@ before_install: |
     cd -
   } || true
   export PATH=~/npm/node_modules/.bin:$PATH
-  
-  cache:
-  directories:
-    - ~/.npm 
-    - ~/npm 

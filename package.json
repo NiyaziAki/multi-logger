@@ -1,0 +1,38 @@
+{
+  "name": "multi-logger",
+  "version": "0.1.0",
+  "description": "A simple configurable multi level logger.",
+  "main": "multi-logger.js",
+  "scripts": {
+    "test": "mocha --timeout 10000 --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiyaziAki/multi-logger.git"
+  },
+  "keywords": [
+    "logger",
+    "console",
+    "log",
+    "trace",
+    "debug",
+    "warning",
+    "error",
+    "fatal"
+  ],
+  "author": "Niyazi Akı",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NiyaziAki/multi-logger/issues"
+  },
+  "homepage": "https://github.com/NiyaziAki/multi-logger#readme",
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.13"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "sinon": "^6.2.0"
+  }
+}

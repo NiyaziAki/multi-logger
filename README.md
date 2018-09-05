@@ -5,6 +5,7 @@ A simple configurable multi level logger.
 [![npm Downloads](https://img.shields.io/npm/dm/multi-loggerjs.svg?style=flat-square)](https://npmcharts.com/compare/multi-loggerjs?minimal=true)
 [![Dependencies](https://img.shields.io/david/NiyaziAki/multi-logger.svg?style=flat-square)](https://david-dm.org/NiyaziAki/multi-logger)
 [![Build Status](https://travis-ci.org/NiyaziAki/multi-logger.svg?branch=master)](https://travis-ci.org/NiyaziAki/multi-logger)
+[![MIT License](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/NiyaziAki/multi-logger/blob/master/LICENSE)
 
 
 [![NPM](https://nodei.co/npm/multi-loggerjs.png?downloads=true&downloadRank=true)](https://nodei.co/npm/multi-loggerjs/)
@@ -55,3 +56,6 @@ multiLogger.info("Configurable logger!");
 <div align="center">
   <img alt="Default Usage" src="docs/configure.PNG">
 </div>
+
+multi-logger is using [![String Format](https://img.shields.io/badge/moment-v2.22.2-brightgreen.svg)](https://momentjs.com/docs/#/parsing/string-format/) for date and time formats.
+

@@ -189,8 +189,7 @@ describe("MultiLogger", () => {
 
         let spy = sinon.spy(console, "log");
 
-        multiLogger.info("Info !");        
-        console.log(infoMessage);
+        multiLogger.info("Info !");   
         assert(
           !isEmpty(infoMessage.find(message => console.log.calledWith(message)))
         );

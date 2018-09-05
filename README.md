@@ -59,3 +59,52 @@ multiLogger.info("Configurable logger!");
 
 multi-logger is using [![String Format](https://img.shields.io/badge/moment-v2.22.2-brightgreen.svg)](https://momentjs.com/docs/#/parsing/string-format/) for date and time formats.
 
+#### Custom loggers & Modifications
+
+```js
+const logger = require("multi-loggerjs");
+const foregrounds = logger.foregrounds;
+const backgrounds = logger.backgrounds;
+const levels = logger.levels;
+
+const options = {
+  loggers: {
+    info: {
+      badge: "ℹ",
+      foreground: foregrounds.Magenta,
+      background: backgrounds.Default,
+      isUnderlined: false,
+      text: {
+        foreground: foregrounds.LightCyan,
+        background: backgrounds.Default,
+        isUnderlined: true
+      },
+      label: "Info",
+      level: levels.Trace
+    },
+    status: {
+      level: levels.Trace,
+      badge: "☺",
+      label: "Status",
+      foreground: foregrounds.LightGreen,
+      background: backgrounds.Default,
+      isUnderlined: true,
+      text: {
+        foreground: foregrounds.White,
+        background: backgrounds.LightRed,
+        isUnderlined: true
+      }
+    }
+  }
+};
+
+let multiLogger = new logger.MultiLogger(options);
+multiLogger.info("Modified logger!");
+multiLogger.status("New logger!");
+
+```
+
+<div align="center">
+  <img alt="Default Usage" src="docs/configure2.PNG">
+</div>
+

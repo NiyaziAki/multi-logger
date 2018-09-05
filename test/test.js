@@ -204,6 +204,7 @@ describe("MultiLogger", () => {
           !isEmpty(infoMessage.find(message => console.log.calledWith(message)))
         );
 
+        console.log(successMessage);
         multiLogger.success("Success !");
         assert(
           !isEmpty(

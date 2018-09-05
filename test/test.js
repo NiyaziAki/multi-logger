@@ -8,8 +8,6 @@ const isEmpty = require("../utils/validation/is-empty");
 
 const getConsoleMessage = (
   milliSecondsDelay,
-  line,
-  column,
   badge,
   label,
   message
@@ -65,7 +63,9 @@ const getConsoleMessage = (
 
   let timeZoneString = timeZone < 0 ? "-" : "+";
 
-  if (Math.abs(timeZone) < 1000) {
+  if(timeZone===0){
+    timeZoneString+="000";
+  }else  if (Math.abs(timeZone) < 1000) {
     timeZoneString += "0";
   }
 
@@ -75,7 +75,7 @@ const getConsoleMessage = (
 
   milliSecondsDelayList.forEach(x => {
     messages.push(
-      `\u001b[90m[${day}.${month}.${date.getFullYear()}] \u001b[90m[${hour}:${minutes}:${seconds}.${x} ${timeZoneString}] \u001b[90m[test.js:${line}:${column}] \u001b[90m❯ ${badge}${label}\u001b[0m \u001b[39m\u001b[49m${message}\u001b[0m`
+      `\u001b[90m[${day}.${month}.${date.getFullYear()}] \u001b[90m[${hour}:${minutes}:${seconds}.${x} ${timeZoneString}] \u001b[90m[/home/travis/build/NiyaziAki/multi-logger/multi-logger.js:48:23] \u001b[90m❯ ${badge}${label}\u001b[0m \u001b[39m\u001b[49m${message}\u001b[0m`
     );
   });
   return messages;
@@ -89,8 +89,6 @@ const fatalBadge = `\u001b[31m\u001b[49m★    \u001b[4m\u001b[31m\u001b[49m`;
 
 const infoMessage = getConsoleMessage(
   50,
-  202,
-  21,
   infoBadge,
   "Info        :",
   "Info !"
@@ -98,8 +96,6 @@ const infoMessage = getConsoleMessage(
 
 const successMessage = getConsoleMessage(
   50,
-  207,
-  21,
   successBadge,
   "Success     :",
   "Success !"
@@ -107,8 +103,6 @@ const successMessage = getConsoleMessage(
 
 const warningMessage = getConsoleMessage(
   50,
-  214,
-  21,
   warningBadge,
   "Warning     :",
   "Warning !"
@@ -116,8 +110,6 @@ const warningMessage = getConsoleMessage(
 
 const errorMessage = getConsoleMessage(
   50,
-  221,
-  21,
   errorBadge,
   "Error       :",
   "Error !"
@@ -125,8 +117,6 @@ const errorMessage = getConsoleMessage(
 
 const fatalMessage = getConsoleMessage(
   50,
-  228,
-  21,
   fatalBadge,
   "Fatal Error :",
   "Fatal Error !"

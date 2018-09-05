@@ -59,7 +59,7 @@ multiLogger.info("Configurable logger!");
 
 multi-logger is using [![String Format](https://img.shields.io/badge/moment-v2.22.2-brightgreen.svg)](https://momentjs.com/docs/#/parsing/string-format/) for date and time formats.
 
-#### Custom loggers & Modifications
+#### Custom Loggers & Modifications
 
 ```js
 const logger = require("multi-loggerjs");
@@ -115,3 +115,52 @@ Available foregrounds and backgrounds are as follows; Default, Black, Red, Green
 | Foregrounds   | Backgrounds   |
 | ------------- |:-------------:|
 | <img alt="Default Usage" src="docs/foregrounds.PNG">      | <img alt="Default Usage" src="docs/backgrounds.PNG"> |
+
+#### Log Levels
+
+Available log levels are as follows;
+* Trace: 0
+* Debug: 1
+* Information: 2
+* Warning: 3
+* Error: 4
+* Fatal: 5
+
+#### Logging Rules
+
+Each logger can write to different sources according to the environment defined configuration. By default the loggers use console for production and development with log level Trace. Each environment can use multiple sources for logging.
+
+
+```js
+const logger = require("multi-loggerjs");
+
+const options = {
+  rules: {
+    production: {
+      writeTo: {
+        file: [
+          {
+            level: levels.Error,
+            folderPath: "C:\\Repositories\\multi-logger\\test\\logs",
+            fileName: "error.txt",
+            size: 1024
+          },
+          {
+            minLevel: levels.Warning,
+            folderPath: "C:\\Repositories\\multi-logger\\test\\logs",
+            fileName: "warning.txt",
+            size: 1024
+          }
+        ],
+        mongoDb: [{ minLevel: levels.Warning, connectionString: "mongodb://localhost:27017/multi-logger-demo" }]
+      }
+    },
+    development: {
+      writeTo: { console: [{ minLevel: levels.Trace }] }
+    }
+  }
+};
+
+const multiLogger = new logger.MultiLogger(options);
+multiLogger.info("Writes to file and mongo db for production & console for development according to loggers log level!");
+```

@@ -108,3 +108,10 @@ multiLogger.status("New logger!");
   <img alt="Default Usage" src="docs/configure2.PNG">
 </div>
 
+#### Available Foregrounds and Backgrounds
+
+Available foregrounds and backgrounds are as follows; Default, Black, Red, Green, Yellow, Blue, Magenta, Cyan, LightGray, DarkGray, LightRed, LightGreen, LightYellow, LightBlue, LightMagenta, LightCyan, White.
+
+| Foregrounds   | Backgrounds   |
+| ------------- |:-------------:|
+| <img alt="Default Usage" src="docs/foregrounds.PNG">      | <img alt="Default Usage" src="docs/backgrounds.PNG"> |

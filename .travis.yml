@@ -2,8 +2,3 @@ language: node_js
 node_js:
   - "10"
 services: mongodb
-install:
-  - npm install -g codecov istanbul
-script:
-  - istanbul cover multi-logger.js --reporter lcovonly -- -R spec
-  - codecov

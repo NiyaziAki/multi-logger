@@ -2,16 +2,9 @@ const assert = require("assert");
 const sinon = require("sinon");
 const logger = require("../multi-logger");
 const levels = require("../enums/levels");
-const foregrounds = require("../enums/foregrounds");
-const backgrounds = require("../enums/backgrounds");
 const isEmpty = require("../utils/validation/is-empty");
 
-const getConsoleMessage = (
-  milliSecondsDelay,
-  badge,
-  label,
-  message
-) => {
+const getConsoleMessage = (milliSecondsDelay, badge, label, message) => {
   let date = new Date();
   let day = date.getDate();
   if (day < 10) {
@@ -63,9 +56,9 @@ const getConsoleMessage = (
 
   let timeZoneString = timeZone < 0 ? "-" : "+";
 
-  if(timeZone===0){
-    timeZoneString+="000";
-  }else  if (Math.abs(timeZone) < 1000) {
+  if (timeZone === 0) {
+    timeZoneString += "000";
+  } else if (Math.abs(timeZone) < 1000) {
     timeZoneString += "0";
   }
 
@@ -87,12 +80,7 @@ const warningBadge = `\u001b[33m\u001b[49m⚠    \u001b[4m\u001b[33m\u001b[49m`;
 const errorBadge = `\u001b[91m\u001b[49m✖    \u001b[4m\u001b[91m\u001b[49m`;
 const fatalBadge = `\u001b[31m\u001b[49m★    \u001b[4m\u001b[31m\u001b[49m`;
 
-const infoMessage = getConsoleMessage(
-  50,
-  infoBadge,
-  "Info        :",
-  "Info !"
-);
+const infoMessage = getConsoleMessage(50, infoBadge, "Info        :", "Info !");
 
 const successMessage = getConsoleMessage(
   50,
@@ -122,8 +110,6 @@ const fatalMessage = getConsoleMessage(
   "Fatal Error !"
 );
 
-
-
 describe("MultiLogger", () => {
   describe("new MultiLogger()", () => {
     it("should create an instance of MultiLogger", done => {
@@ -143,7 +129,7 @@ describe("MultiLogger", () => {
 
         let spy = sinon.spy(console, "log");
 
-        multiLogger.info("Info !");   
+        multiLogger.info("Info !");
         assert(
           !isEmpty(infoMessage.find(message => console.log.calledWith(message)))
         );

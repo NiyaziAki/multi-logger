@@ -115,7 +115,7 @@ const fatalMessage = getConsoleMessage(
 const statusMessage = getConsoleMessage(
   50,
   statusBadge,
-  "Status (Custom Label):",
+  "Status (Custom Label) :",
   "Custom logger!"
 );
 

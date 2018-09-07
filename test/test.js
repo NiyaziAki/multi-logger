@@ -132,19 +132,11 @@ describe("MultiLogger", () => {
   });
 
   describe("Console Logging", () => {
-    beforeEach(function() {
-      sinon.spy(console, "log");
-    });
-
-    afterEach(function() {
-      console.log.restore();
-    });
-
     describe("Default logging", () => {
       it("should use console for default loggers", done => {
         try {
           let multiLogger = new logger.MultiLogger();
-
+          sinon.spy(console, "log");
           multiLogger.info("Info !");
           assert(
             !isEmpty(
@@ -213,6 +205,7 @@ describe("MultiLogger", () => {
           }
         };
 
+        sinon.spy(console, "log");
         let multiLogger = new logger.MultiLogger(options);
         multiLogger.status("Custom logger!");
 
@@ -221,6 +214,7 @@ describe("MultiLogger", () => {
             statusMessage.find(message => console.log.calledWith(message))
           )
         );
+        console.log.restore();
         done();
       });
 

@@ -69,7 +69,7 @@ const getConsoleMessage = (milliSecondsDelay, badge, label, message) => {
 
   milliSecondsDelayList.forEach(x => {
     messages.push(
-      `\u001b[90m[${day}.${month}.${date.getFullYear()}] \u001b[90m[${hour}:${minutes}:${seconds}.${x} ${timeZoneString}] \u001b[90m[/home/travis/build/NiyaziAki/multi-logger/multi-logger.js:49:23] \u001b[90m❯ ${badge}${label}\u001b[0m \u001b[39m\u001b[49m${message}\u001b[0m`
+      `\u001b[90m[${day}.${month}.${date.getFullYear()}] \u001b[90m[${hour}:${minutes}:${seconds}.${x} ${timeZoneString}] \u001b[90m[/home/travis/build/NiyaziAki/multi-logger/multi-logger.js:1:8309] \u001b[90m❯ ${badge}${label}\u001b[0m \u001b[39m\u001b[49m${message}\u001b[0m`
     );
   });
   return messages;

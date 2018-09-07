@@ -2,8 +2,11 @@ language: node_js
 node_js:
   - "10"
 services: mongodb
+<<<<<<< HEAD
 
 before_install:
   - pip install --user codecov
 after_success:
   - nyc report --reporter=text-lcov > coverage.lcov && codecov
+=======
+>>>>>>> 5f0f8dc43358c8468516b6e65450e85a9192bbb0

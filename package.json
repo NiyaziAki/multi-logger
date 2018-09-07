@@ -4,7 +4,7 @@
   "description": "A simple configurable multi level logger.",
   "main": "multi-logger.js",
   "scripts": {
-    "test": "mocha --timeout 10000 --exit"
+    "test": "nyc --reporter=text-lcov mocha --timeout 10000 --exit"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
     "sinon": "^6.2.0"
   }
 }

@@ -56,19 +56,15 @@ const createMessage = (multiLogger, logger, message) => {
 };
 
 const writeToConsole = (multiLogger, writeTo, logger, message) => {
-  try {
-    if (!isEmpty(writeTo.console)) {
-      let write = writeTo.console.find(x => x.minLevel <= logger.level);
-      if (isEmpty(write)) {
-        write = writeTo.console.find(x => x.level === logger.level);
-      }
-      if (!isEmpty(write)) {
-        let consoleMessage = createMessage(multiLogger, logger, message);
-        console.log(consoleMessage);
-      }
+  if (!isEmpty(writeTo.console)) {
+    let write = writeTo.console.find(x => x.minLevel <= logger.level);
+    if (isEmpty(write)) {
+      write = writeTo.console.find(x => x.level === logger.level);
     }
-  } catch (error) {
-    throw new Error(error);
+    if (!isEmpty(write)) {
+      let consoleMessage = createMessage(multiLogger, logger, message);
+      console.log(consoleMessage);
+    }
   }
 };
 

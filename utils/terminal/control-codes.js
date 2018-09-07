@@ -1,7 +1,13 @@
 const isInteger = require("../validation/is-integer");
+const foregrounds = require("../../enums/foregrounds");
+const backgrounds = require("../../enums/backgrounds");
 
 const toFormatCode = number => {
-  if (isInteger(number)) {
+  if (
+    isInteger(number) &&
+    (Object.values(foregrounds).includes(number) ||
+      Object.values(backgrounds).includes(number))
+  ) {
     return `\u001b[${number}m`;
   }
   return reset();

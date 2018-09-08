@@ -6,6 +6,7 @@ A simple configurable multi level logger.
 [![Dependencies](https://img.shields.io/david/NiyaziAki/multi-logger.svg?style=flat-square)](https://david-dm.org/NiyaziAki/multi-logger)
 [![Build Status](https://travis-ci.org/NiyaziAki/multi-logger.svg?branch=master)](https://travis-ci.org/NiyaziAki/multi-logger)
 [![coverage](https://codecov.io/gh/NiyaziAki/multi-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/NiyaziAki/multi-logger)
+[![Maintainability](https://api.codeclimate.com/v1/badges/86e13280e6eda3444a3f/maintainability)](https://codeclimate.com/github/NiyaziAki/multi-logger/maintainability)
 [![MIT License](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/NiyaziAki/multi-logger/blob/master/LICENSE)
 
 [![NPM](https://nodei.co/npm/multi-loggerjs.png?downloads=true&downloadRank=true)](https://nodei.co/npm/multi-loggerjs/)

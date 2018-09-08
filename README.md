@@ -5,8 +5,8 @@ A simple configurable multi level logger.
 [![npm Downloads](https://img.shields.io/npm/dm/multi-loggerjs.svg?style=flat-square)](https://npmcharts.com/compare/multi-loggerjs?minimal=true)
 [![Dependencies](https://img.shields.io/david/NiyaziAki/multi-logger.svg?style=flat-square)](https://david-dm.org/NiyaziAki/multi-logger)
 [![Build Status](https://travis-ci.org/NiyaziAki/multi-logger.svg?branch=master)](https://travis-ci.org/NiyaziAki/multi-logger)
+[![coverage](https://codecov.io/gh/NiyaziAki/multi-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/NiyaziAki/multi-logger)
 [![MIT License](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/NiyaziAki/multi-logger/blob/master/LICENSE)
-
 
 [![NPM](https://nodei.co/npm/multi-loggerjs.png?downloads=true&downloadRank=true)](https://nodei.co/npm/multi-loggerjs/)
 
@@ -46,7 +46,7 @@ const options = {
   showFullPath: true,
   showDate: true,
   showTime: true,
-  showCallerInfo: true
+  showExternalCallerInfo: true
 };
 
 let multiLogger = new logger.MultiLogger(options);

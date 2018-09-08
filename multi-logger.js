@@ -48,7 +48,6 @@ class MultiLogger {
     const { stack } = new Error();
     Error.prepareStackTrace = original;
 
-    let callerInfo = [];
     let firstExternalStack = stack.find(x => {
       return ![
         "console-utils.js",
@@ -63,22 +62,7 @@ class MultiLogger {
       );
     });
 
-    let fileName = firstExternalStack
-      ? this._options.showFullPath
-        ? firstExternalStack.getFileName()
-        : firstExternalStack
-            .getFileName()
-            .split("\\")
-            .pop()
-      : "unknown";
-    callerInfo.push(fileName);
-
-    if (fileName !== "unknown") {
-      callerInfo.push(firstExternalStack.getLineNumber());
-      callerInfo.push(firstExternalStack.getColumnNumber());
-    }
-
-    return callerInfo.join(":");
+    return createCallerInfo(firstExternalStack);
   }
 
   get isProduction() {
@@ -106,6 +90,26 @@ class MultiLogger {
     }
   }
 }
+
+const createCallerInfo = stack => {
+  let callerInfo = [];
+  let fileName = stack
+    ? this._options.showFullPath
+      ? stack.getFileName()
+      : stack
+          .getFileName()
+          .split("\\")
+          .pop()
+    : "unknown";
+  callerInfo.push(fileName);
+
+  if (fileName !== "unknown") {
+    callerInfo.push(stack.getLineNumber());
+    callerInfo.push(stack.getColumnNumber());
+  }
+
+  return callerInfo.join(":");
+};
 
 module.exports = {
   backgrounds: backgrounds,

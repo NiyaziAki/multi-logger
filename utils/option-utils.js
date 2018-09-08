@@ -1,6 +1,14 @@
 const isEmpty = require("./validation/is-empty");
 const levels = require("../enums/levels");
 
+const checkIfEmpty = value => {
+  if (isEmpty(value)) {
+    value = false;
+  } else {
+    value = value === true;
+  }
+};
+
 const init = (options = {}) => {
   if (isEmpty(options.dateFormat)) {
     options.dateFormat = "DD.MM.YYYY";
@@ -9,28 +17,10 @@ const init = (options = {}) => {
     options.timeFormat = "HH:mm:ss.SSS ZZ";
   }
 
-  if (isEmpty(options.showFullPath)) {
-    options.showFullPath = false;
-  } else {
-    options.showFullPath = options.showFullPath === true;
-  }
-
-  if (isEmpty(options.showDate)) {
-    options.showDate = true;
-  } else {
-    options.showDate = options.showDate === true;
-  }
-
-  if (isEmpty(options.showTime)) {
-    options.showTime = true;
-  } else {
-    options.showTime = options.showTime === true;
-  }
-  if (isEmpty(options.showExternalCallerInfo)) {
-    options.showExternalCallerInfo = true;
-  } else {
-    options.showExternalCallerInfo = options.showExternalCallerInfo === true;
-  }
+  checkIfEmpty(options.showFullPath);
+  checkIfEmpty(options.showDate);
+  checkIfEmpty(options.showTime);
+  checkIfEmpty(options.showExternalCallerInfo);
 
   if (isEmpty(options.rules)) {
     options.rules = {
@@ -62,7 +52,19 @@ const findMaxLabelLength = loggers => {
   return maxLabelLength < 11 ? 11 : maxLabelLength;
 };
 
+const findRule = rule => {
+  let write = undefined;
+  if (!isEmpty(rule)) {
+    write = rule.find(x => x.minLevel <= logger.level);
+    if (isEmpty(write)) {
+      write = rule.find(x => x.level === logger.level);
+    }
+  }
+  return write;
+};
+
 module.exports = {
   init: init,
-  findMaxLabelLength: findMaxLabelLength
+  findMaxLabelLength: findMaxLabelLength,
+  findRule: findRule
 };

@@ -1,38 +1,46 @@
 const isEmpty = require("../utils/validation/is-empty");
 var mongoose = require("mongoose");
 const Log = require("../models/log");
+const optionUtils = require("./option-utils");
+
+const isConnected = () => {
+  return mongoose.connection.readyState === 1;
+};
+
+const connect = async write => {
+  if (isEmpty(write) || isEmpty(write.connectionString)) {
+    throw new Error("no connection string found for connection");
+  }
+
+  if (isConnected()) {
+    mongoose.connection.close();
+  }
+  await mongoose
+    .connect(
+      write.connectionString,
+      { useNewUrlParser: true }
+    )
+    .catch(error => {
+      throw new Error(error);
+    });
+};
 
 const writeToMongoDb = async (writeTo, logger, message, externalCaller) => {
   try {
-    if (!isEmpty(writeTo.mongoDb)) {
-      let write = writeTo.mongoDb.find(x => x.minLevel <= logger.level);
-      if (isEmpty(write)) {
-        write = writeTo.mongoDb.find(x => x.level === logger.level);
-      }
-      if (!isEmpty(write)) {
-        await mongoose
-          .connect(
-            write.connectionString,
-            { useNewUrlParser: true }
-          )
-          .catch(error => {
-            throw new Error(error);
-          });
-        if (mongoose.connection.readyState === 1) {
-          const newlog = new Log({
-            name: logger.label,
-            date: new Date(),
-            level: logger.level,
-            caller: externalCaller,
-            message: message
-          });
+    let write = optionUtils.findRule(writeTo.mongoDb);
+    await connect(write);
 
-          await newlog.save();
-        }
-      }
-    }
+    const newlog = new Log({
+      name: logger.label,
+      date: new Date(),
+      level: logger.level,
+      caller: externalCaller,
+      message: message
+    });
+
+    await newlog.save();
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 };
 

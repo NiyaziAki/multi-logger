@@ -28,24 +28,54 @@ const createMessage = (multiLogger, logger, message, externalCaller) => {
 
 const sortFiles = files => {
   files.sort((first, second) => {
-    let firstMinLevel = isEmpty(first.minLevel) ? -1 : first.minLevel;
-    let secondMinLevel = isEmpty(second.minLevel) ? -1 : second.minLevel;
-    let firstLevel = isEmpty(first.level) ? -1 : first.level;
-    let secondLevel = isEmpty(second.level) ? -1 : second.level;
+    let levels = calculateLevels(first, second);
 
-    if (firstMinLevel > secondMinLevel) {
+    if (levels.firstMinLevel > levels.secondMinLevel) {
       return -1;
-    } else if (firstMinLevel < secondMinLevel) {
+    } else if (levels.firstMinLevel < levels.secondMinLevel) {
       return 1;
-    } else if (firstLevel > secondLevel) {
+    } else if (levels.firstLevel > levels.secondLevel) {
       return -1;
-    } else if (firstLevel < secondLevel) {
+    } else if (levels.firstLevel < levels.secondLevel) {
       return 1;
     }
     return 0;
   });
 };
 
+const calculateLevels = (first, second) => {
+  return {
+    firstMinLevel: isEmpty(first.minLevel) ? -1 : first.minLevel,
+    secondMinLevel: isEmpty(second.minLevel) ? -1 : second.minLevel,
+    firstLevel: isEmpty(first.level) ? -1 : first.level,
+    secondLevel: isEmpty(second.level) ? -1 : second.level
+  };
+};
+
+const write = async (file, multiLogger, logger, message, externalCaller) => {
+  try {
+    if (!isEmpty(file.folderPath)) {
+      let filePath = `${file.folderPath}\\${file.fileName}`;
+      await fs.ensureFile(filePath);
+      if (!isEmpty(file.size)) {
+        let stats = fs.statSync(filePath);
+        if (file.size <= stats.size) {
+          let newPath = `${file.folderPath}\\${multiLogger.timestamp}${
+            file.fileName
+          }`;
+          fs.renameSync(filePath, newPath);
+          await fs.ensureFile(filePath);
+        }
+      }
+      await fs.appendFile(
+        filePath,
+        `${createMessage(multiLogger, logger, message, externalCaller)}\n`
+      );
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 const writeToFile = async (
   multiLogger,
   writeTo,
@@ -62,24 +92,7 @@ const writeToFile = async (
       sortFiles(files);
 
       for (const file of files) {
-        if (!isEmpty(file.folderPath)) {
-          const filePath = `${file.folderPath}\\${file.fileName}`;
-          await fs.ensureFile(filePath);
-          if (!isEmpty(file.size)) {
-            const stats = fs.statSync(filePath);
-            if (file.size <= stats.size) {
-              const newPath = `${file.folderPath}\\${multiLogger.timestamp}${
-                file.fileName
-              }`;
-              fs.renameSync(filePath, newPath);
-              await fs.ensureFile(filePath);
-            }
-          }
-          await fs.appendFile(
-            filePath,
-            `${createMessage(multiLogger, logger, message, externalCaller)}\n`
-          );
-        }
+        await write(file, multiLogger, logger, message, externalCaller);
       }
     }
   } catch (error) {

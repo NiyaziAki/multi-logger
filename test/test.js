@@ -356,8 +356,8 @@ describe("MultiLogger", () => {
       let multiLogger = new logger.MultiLogger(fileOptions);
       multiLogger
         .error("File Logging !")
-        .then(value => {
-          done("exception not thrown");
+        .then(() => {
+          assert(false);
         })
         .catch(error => {
           done();

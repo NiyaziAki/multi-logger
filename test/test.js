@@ -204,7 +204,7 @@ describe("MultiLogger", () => {
             }
           }
         };
-
+        sinon.spy(console, "log");
         let multiLogger = new logger.MultiLogger(options);
         multiLogger.status("Custom logger!");
 
@@ -246,12 +246,13 @@ describe("MultiLogger", () => {
             }
           }
         };
-
+        sinon.spy(console, "log");
         let multiLogger = new logger.MultiLogger(options);
         multiLogger.status("Custom output!");
 
         let simpleInfoMessage = `\u001b[92m\u001b[49m☺    \u001b[92m\u001b[49m\u001b[0mStatus      :\u001b[97m\u001b[101mCustom output!\u001b[0m`;
         assert(!isEmpty(console.log.calledWith(simpleInfoMessage)));
+        console.log.restore();
         done();
       });
     });

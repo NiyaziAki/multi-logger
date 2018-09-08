@@ -1,9 +1,9 @@
 const isEmpty = require("./validation/is-empty");
 const levels = require("../enums/levels");
 
-const checkIfEmpty = (options, key) => {
+const checkIfEmpty = (options, key, defaultValue) => {
   if (isEmpty(options[key])) {
-    options[key] = false;
+    options[key] = defaultValue;
   } else {
     options[key] = options[key] === true;
   }
@@ -17,10 +17,10 @@ const init = (options = {}) => {
     options.timeFormat = "HH:mm:ss.SSS ZZ";
   }
 
-  checkIfEmpty(options, "showFullPath");
-  checkIfEmpty(options, "showDate");
-  checkIfEmpty(options, "showTime");
-  checkIfEmpty(options, "showExternalCallerInfo");
+  checkIfEmpty(options, "showFullPath", false);
+  checkIfEmpty(options, "showDate", true);
+  checkIfEmpty(options, "showTime", true);
+  checkIfEmpty(options, "showExternalCallerInfo", true);
 
   if (isEmpty(options.rules)) {
     options.rules = {

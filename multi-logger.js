@@ -62,7 +62,7 @@ class MultiLogger {
       );
     });
 
-    return createCallerInfo(firstExternalStack);
+    return createCallerInfo(firstExternalStack, this._options.showFullPath);
   }
 
   get isProduction() {
@@ -91,10 +91,10 @@ class MultiLogger {
   }
 }
 
-const createCallerInfo = stack => {
+const createCallerInfo = (stack, showFullPath) => {
   let callerInfo = [];
   let fileName = stack
-    ? this._options.showFullPath
+    ? showFullPath
       ? stack.getFileName()
       : stack
           .getFileName()

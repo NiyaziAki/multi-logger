@@ -205,7 +205,6 @@ describe("MultiLogger", () => {
           }
         };
 
-        sinon.spy(console, "log");
         let multiLogger = new logger.MultiLogger(options);
         multiLogger.status("Custom logger!");
 
@@ -247,7 +246,7 @@ describe("MultiLogger", () => {
             }
           }
         };
-        sinon.spy(console, "log");
+
         let multiLogger = new logger.MultiLogger(options);
         multiLogger.status("Custom output!");
 

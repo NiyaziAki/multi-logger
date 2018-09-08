@@ -60,7 +60,7 @@ const createConsoleMessage = (multiLogger, logger, message) => {
 };
 
 const writeToConsole = (multiLogger, writeTo, logger, message) => {
-  let write = optionUtils.findRule(writeTo.console);
+  let write = optionUtils.findRule(writeTo.console, logger);
   if (!isEmpty(write)) {
     let consoleMessage = createConsoleMessage(multiLogger, logger, message);
     console.log(consoleMessage);

@@ -1,11 +1,11 @@
 const isEmpty = require("./validation/is-empty");
 const levels = require("../enums/levels");
 
-const checkIfEmpty = value => {
-  if (isEmpty(value)) {
-    value = false;
+const checkIfEmpty = (options, key) => {
+  if (isEmpty(options[key])) {
+    options[key] = false;
   } else {
-    value = value === true;
+    options[key] = options[key] === true;
   }
 };
 
@@ -17,10 +17,10 @@ const init = (options = {}) => {
     options.timeFormat = "HH:mm:ss.SSS ZZ";
   }
 
-  checkIfEmpty(options.showFullPath);
-  checkIfEmpty(options.showDate);
-  checkIfEmpty(options.showTime);
-  checkIfEmpty(options.showExternalCallerInfo);
+  checkIfEmpty(options, "showFullPath");
+  checkIfEmpty(options, "showDate");
+  checkIfEmpty(options, "showTime");
+  checkIfEmpty(options, "showExternalCallerInfo");
 
   if (isEmpty(options.rules)) {
     options.rules = {
@@ -52,7 +52,7 @@ const findMaxLabelLength = loggers => {
   return maxLabelLength < 11 ? 11 : maxLabelLength;
 };
 
-const findRule = rule => {
+const findRule = (rule, logger) => {
   let write = undefined;
   if (!isEmpty(rule)) {
     write = rule.find(x => x.minLevel <= logger.level);

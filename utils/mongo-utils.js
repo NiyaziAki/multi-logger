@@ -27,7 +27,10 @@ const connect = async write => {
 
 const writeToMongoDb = async (writeTo, logger, message, externalCaller) => {
   try {
-    let write = optionUtils.findRule(writeTo.mongoDb);
+    if (isEmpty(writeTo.mongoDb)) {
+      return;
+    }
+    let write = optionUtils.findRule(writeTo.mongoDb, logger);
     await connect(write);
 
     const newlog = new Log({

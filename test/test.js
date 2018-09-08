@@ -269,54 +269,54 @@ describe("MultiLogger", () => {
                   level: levels.Error,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   level: levels.Error,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log2.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   minLevel: levels.Trace,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log3.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   minLevel: levels.Fatal,
                   level: levels.Fatal,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log4.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   minLevel: levels.Error,
                   level: levels.Fatal,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log5.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   minLevel: levels.Error,
                   level: levels.Trace,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log6.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   minLevel: levels.Fatal,
                   level: levels.Trace,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log7.txt",
-                  size: 500
+                  size: -1
                 },
                 {
                   minLevel: levels.Trace,
                   level: levels.Trace,
                   folderPath: `${__dirname}\\logs`,
                   fileName: "log8.txt",
-                  size: 500
+                  size: -1
                 }
               ]
             }

@@ -1,11 +1,9 @@
 const isEmpty = require("../utils/validation/is-empty");
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Log = require("../models/log");
 const optionUtils = require("./option-utils");
 
-const isConnected = () => {
-  return mongoose.connection.readyState === 1;
-};
+const isConnected = () => mongoose.connection.readyState === 1;
 
 const connect = async write => {
   if (isEmpty(write) || isEmpty(write.connectionString)) {
@@ -25,12 +23,14 @@ const connect = async write => {
     });
 };
 
+// eslint-disable-next-line space-before-function-paren
 const writeToMongoDb = async (writeTo, logger, message, externalCaller) => {
   try {
     if (isEmpty(writeTo.mongoDb)) {
       return;
     }
-    let write = optionUtils.findRule(writeTo.mongoDb, logger);
+    const write = optionUtils.findRule(writeTo.mongoDb, logger);
+
     await connect(write);
 
     const newlog = new Log({
@@ -38,7 +38,7 @@ const writeToMongoDb = async (writeTo, logger, message, externalCaller) => {
       date: new Date(),
       level: logger.level,
       caller: externalCaller,
-      message: message
+      message
     });
 
     await newlog.save();
@@ -48,5 +48,5 @@ const writeToMongoDb = async (writeTo, logger, message, externalCaller) => {
 };
 
 module.exports = {
-  writeToMongoDb: writeToMongoDb
+  writeToMongoDb
 };

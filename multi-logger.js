@@ -11,6 +11,31 @@ const consoleUtils = require("./utils/console-utils");
 const fileUtils = require("./utils/file-utils");
 const mongoUtils = require("./utils/mongo-utils");
 
+const createCallerInfo = (stack, showFullPath) => {
+  const callerInfo = [];
+  let fileName = "unknown";
+
+  if (!isEmpty(stack)) {
+    if (showFullPath) {
+      fileName = stack.getFileName();
+    } else {
+      fileName = stack
+        .getFileName()
+        .split("\\")
+        .pop();
+    }
+  }
+
+  callerInfo.push(fileName);
+
+  if (fileName !== "unknown") {
+    callerInfo.push(stack.getLineNumber());
+    callerInfo.push(stack.getColumnNumber());
+  }
+
+  return callerInfo.join(":");
+};
+
 class MultiLogger {
   constructor(options = {}) {
     this._options = options;
@@ -38,45 +63,51 @@ class MultiLogger {
     return moment().format(this._options.timeFormat);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get timestamp() {
     return moment().format("DDMMYYYYHHmmssSSS");
   }
 
   get externalCallerInfo() {
     const original = Error.prepareStackTrace;
+
     Error.prepareStackTrace = (error, stack) => stack;
     const { stack } = new Error();
+
     Error.prepareStackTrace = original;
 
-    let firstExternalStack = stack.find(x => {
-      return ![
-        "console-utils.js",
-        "file-utils.js",
-        "multi-logger.js",
-        "mongo-utils.js"
-      ].includes(
-        x
-          .getFileName()
-          .split("\\")
-          .pop()
-      );
-    });
+    const firstExternalStack = stack.find(
+      x =>
+        ![
+          "console-utils.js",
+          "file-utils.js",
+          "multi-logger.js",
+          "mongo-utils.js"
+        ].includes(
+          x
+            .getFileName()
+            .split("\\")
+            .pop()
+        )
+    );
 
     return createCallerInfo(firstExternalStack, this._options.showFullPath);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get isProduction() {
     return process.env.NODE_ENV === "production";
   }
 
   async log(logger, message) {
-    let writeTo = this.isProduction
+    const writeTo = this.isProduction
       ? this._options.rules.production.writeTo
       : this._options.rules.development.writeTo;
 
     try {
       consoleUtils.writeToConsole(this, writeTo, logger, message);
-      let externalCaller = this.externalCallerInfo;
+      const externalCaller = this.externalCallerInfo;
+
       await fileUtils.writeToFile(
         this,
         writeTo,
@@ -91,29 +122,9 @@ class MultiLogger {
   }
 }
 
-const createCallerInfo = (stack, showFullPath) => {
-  let callerInfo = [];
-  let fileName = stack
-    ? showFullPath
-      ? stack.getFileName()
-      : stack
-          .getFileName()
-          .split("\\")
-          .pop()
-    : "unknown";
-  callerInfo.push(fileName);
-
-  if (fileName !== "unknown") {
-    callerInfo.push(stack.getLineNumber());
-    callerInfo.push(stack.getColumnNumber());
-  }
-
-  return callerInfo.join(":");
-};
-
 module.exports = {
-  backgrounds: backgrounds,
-  foregrounds: foregrounds,
-  levels: levels,
-  MultiLogger: MultiLogger
+  backgrounds,
+  foregrounds,
+  levels,
+  MultiLogger
 };

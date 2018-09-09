@@ -2,21 +2,19 @@ const foregrounds = require("../enums/foregrounds");
 const backgrounds = require("../enums/backgrounds");
 const levels = require("../enums/levels");
 
-const createDefaultLogger = (badge, foreground, label, level) => {
-  return {
-    badge: badge,
-    foreground: foreground,
+const createDefaultLogger = (badge, foreground, label, level) => ({
+  badge,
+  foreground,
+  background: backgrounds.Default,
+  isUnderlined: true,
+  text: {
+    foreground: foregrounds.Default,
     background: backgrounds.Default,
-    isUnderlined: true,
-    text: {
-      foreground: foregrounds.Default,
-      background: backgrounds.Default,
-      isUnderlined: false
-    },
-    label: label,
-    level: level
-  };
-};
+    isUnderlined: false
+  },
+  label,
+  level
+});
 
 const defaultLoggers = {
   info: createDefaultLogger("ℹ", foregrounds.LightBlue, "Info", levels.Trace),

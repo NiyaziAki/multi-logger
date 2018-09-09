@@ -3,9 +3,9 @@ const paddingRight = require("./padding-right");
 const isEmpty = require("../utils/validation/is-empty");
 
 const createMessage = (multiLogger, logger, message, externalCaller) => {
-  let log = [];
-  let badge = paddingRight(logger.badge, 4);
-  let label = paddingRight(logger.label, multiLogger._maxLabelLength) + " :";
+  const log = [];
+  const badge = paddingRight(logger.badge, 4);
+  const label = `${paddingRight(logger.label, multiLogger._maxLabelLength)} :`;
 
   if (multiLogger._options.showDate) {
     log.push(`[${multiLogger.date}]`);
@@ -26,43 +26,48 @@ const createMessage = (multiLogger, logger, message, externalCaller) => {
   return log.join(" ");
 };
 
+const calculateLevels = (first, second) => ({
+  firstMinLevel: isEmpty(first.minLevel) ? -1 : first.minLevel,
+  secondMinLevel: isEmpty(second.minLevel) ? -1 : second.minLevel,
+  firstLevel: isEmpty(first.level) ? -1 : first.level,
+  secondLevel: isEmpty(second.level) ? -1 : second.level
+});
+
 const sortFiles = files => {
   files.sort((first, second) => {
-    let levels = calculateLevels(first, second);
+    const levels = calculateLevels(first, second);
 
     if (levels.firstMinLevel > levels.secondMinLevel) {
       return -1;
-    } else if (levels.firstMinLevel < levels.secondMinLevel) {
+    }
+    if (levels.firstMinLevel < levels.secondMinLevel) {
       return 1;
-    } else if (levels.firstLevel > levels.secondLevel) {
+    }
+    if (levels.firstLevel > levels.secondLevel) {
       return -1;
-    } else if (levels.firstLevel < levels.secondLevel) {
+    }
+    if (levels.firstLevel < levels.secondLevel) {
       return 1;
     }
     return 0;
   });
 };
 
-const calculateLevels = (first, second) => {
-  return {
-    firstMinLevel: isEmpty(first.minLevel) ? -1 : first.minLevel,
-    secondMinLevel: isEmpty(second.minLevel) ? -1 : second.minLevel,
-    firstLevel: isEmpty(first.level) ? -1 : first.level,
-    secondLevel: isEmpty(second.level) ? -1 : second.level
-  };
-};
-
+// eslint-disable-next-line space-before-function-paren
 const write = async (file, multiLogger, logger, message, externalCaller) => {
   try {
     if (!isEmpty(file.folderPath)) {
-      let filePath = `${file.folderPath}\\${file.fileName}`;
+      const filePath = `${file.folderPath}\\${file.fileName}`;
+
       await fs.ensureFile(filePath);
       if (!isEmpty(file.size)) {
-        let stats = fs.statSync(filePath);
+        const stats = fs.statSync(filePath);
+
         if (file.size <= stats.size) {
-          let newPath = `${file.folderPath}\\${multiLogger.timestamp}${
+          const newPath = `${file.folderPath}\\${multiLogger.timestamp}${
             file.fileName
           }`;
+
           fs.renameSync(filePath, newPath);
           await fs.ensureFile(filePath);
         }
@@ -76,6 +81,8 @@ const write = async (file, multiLogger, logger, message, externalCaller) => {
     throw new Error(error);
   }
 };
+
+// eslint-disable-next-line space-before-function-paren
 const writeToFile = async (
   multiLogger,
   writeTo,
@@ -85,7 +92,7 @@ const writeToFile = async (
 ) => {
   try {
     if (!isEmpty(writeTo.file)) {
-      let files = writeTo.file.filter(
+      const files = writeTo.file.filter(
         x => x.minLevel <= logger.level || x.level === logger.level
       );
 
@@ -101,5 +108,5 @@ const writeToFile = async (
 };
 
 module.exports = {
-  writeToFile: writeToFile
+  writeToFile
 };

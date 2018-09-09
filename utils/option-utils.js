@@ -34,26 +34,24 @@ const findMaxLabelLength = loggers => {
   if (isEmpty(loggers)) {
     return 11;
   }
-  let labels = [];
+  const labels = [];
+
   Object.keys(loggers).forEach(logger => {
-    let label = loggers[logger].label;
+    const label = loggers[logger].label;
+
     if (!isEmpty(label)) {
       labels.push(label);
     }
   });
 
-  let maxLabelLength = Math.max.apply(
-    Math,
-    labels.map(label => {
-      return label.length;
-    })
-  );
+  const maxLabelLength = Math.max(labels.map(label => label.length));
 
   return maxLabelLength < 11 ? 11 : maxLabelLength;
 };
 
 const findRule = (rule, logger) => {
-  let write = undefined;
+  let write;
+
   if (!isEmpty(rule)) {
     write = rule.find(x => x.minLevel <= logger.level);
     if (isEmpty(write)) {
@@ -64,7 +62,7 @@ const findRule = (rule, logger) => {
 };
 
 module.exports = {
-  init: init,
-  findMaxLabelLength: findMaxLabelLength,
-  findRule: findRule
+  init,
+  findMaxLabelLength,
+  findRule
 };

@@ -15,15 +15,13 @@ const createCallerInfo = (stack, showFullPath) => {
   const callerInfo = [];
   let fileName = "unknown";
 
-  if (!stack) {
-    if (showFullPath) {
-      fileName = stack.getFileName();
-    } else {
-      fileName = stack
-        .getFileName()
-        .split("\\")
-        .pop();
-    }
+  if (showFullPath) {
+    fileName = stack.getFileName();
+  } else {
+    fileName = stack
+      .getFileName()
+      .split("\\")
+      .pop();
   }
 
   callerInfo.push(fileName);

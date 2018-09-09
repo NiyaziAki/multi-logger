@@ -1,6 +1,6 @@
 {
   "name": "multi-loggerjs",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "A simple configurable multi level logger.",
   "main": "multi-logger.js",
   "scripts": {

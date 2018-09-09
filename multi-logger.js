@@ -15,7 +15,7 @@ const createCallerInfo = (stack, showFullPath) => {
   const callerInfo = [];
   let fileName = "unknown";
 
-  if (!isEmpty(stack)) {
+  if (!stack) {
     if (showFullPath) {
       fileName = stack.getFileName();
     } else {
